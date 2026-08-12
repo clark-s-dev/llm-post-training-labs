@@ -1,0 +1,26 @@
+# ─── 核心依赖（必需）────────────────────────────────────────────────
+# 版本区间说明：给了上界是因为 transformers 5.x 改过 API
+# （num_logits_to_keep → logits_to_keep），common/logprobs.py 会在运行时
+# 自动探测，所以 4.45+ 到 5.x 都能跑。
+torch>=2.4
+transformers>=4.45
+datasets>=2.20
+accelerate>=0.34
+numpy>=1.24
+tqdm>=4.66
+safetensors>=0.4
+
+# ─── 可选：LoRA（lab01 的 --lora）───────────────────────────────────
+peft>=0.12
+
+# ─── 可选：更严谨的数学答案判等（装了会自动启用）──────────────────
+# 能处理符号表达式、区间、集合等，比内置的数值比较更全面
+math-verify>=0.5 ; python_version >= "3.9"
+
+# ─── 可选：实验跟踪（加 --wandb 才用得到）──────────────────────────
+wandb>=0.17
+
+# ─── 可选：高吞吐 rollout。不装也能跑（会退回 HF generate，慢 5~15 倍）
+# L4 上建议装：pip install vllm
+# 注意 vllm 对 torch 版本非常挑剔，单独装以免破坏上面的环境
+# vllm>=0.6

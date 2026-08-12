@@ -1,0 +1,23 @@
+# 训练产物
+outputs/
+*.pt
+*.safetensors
+wandb/
+runs/
+
+# 数据与模型缓存
+.cache/
+hf_cache/
+data/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.ipynb_checkpoints/
+
+# 系统
+.DS_Store
+*.swp
