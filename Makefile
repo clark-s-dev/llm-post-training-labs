@@ -8,7 +8,7 @@ ARGS ?=
 
 .DEFAULT_GOAL := help
 .PHONY: help setup test smoke download clean \
-        lab00 lab01 lab02 lab03 lab04 lab05 lab06 lab07 gen eval
+        lab00 lab01 lab02 lab03 lab04 lab05 lab06 lab07 lab08 lab09 gen eval
 
 help:                     ## 显示所有可用命令
 	@echo ""
@@ -61,6 +61,12 @@ lab06:                    ## 评估：avg@k / pass@k / maj@k / 污染检查
 
 lab07:                    ## Agentic RL：多轮工具调用（loss mask 是重点）
 	$(PY) labs/lab07_agentic_rl/train_agent_grpo.py $(ARGS)
+
+lab08:                    ## 用 TRL 复现 GRPO（需先 pip install -r labs/lab08_trl_grpo/requirements-trl.txt）
+	$(PY) labs/lab08_trl_grpo/train_grpo_trl.py $(ARGS)
+
+lab09:                    ## 用 veRL 复现 GRPO（先跑 prepare_data，见 labs/lab09_verl_grpo/README.md）
+	bash labs/lab09_verl_grpo/run_lab09_l4.sh $(ARGS)
 
 # ---------------------------------------------------------------- 工具
 gen:                      ## 采样看输出：make gen ARGS="--model outputs/lab01_sft"

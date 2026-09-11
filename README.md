@@ -1,8 +1,9 @@
 # LLM 后训练与强化学习 · 动手实验室
 
-> 8 个从零实现的实验，覆盖 SFT → 奖励模型 → DPO → GRPO → 奖励工程 → 评估 → Agentic RL。
-> 不用任何 RL 框架封装，所有算法从头写，**每一行关键代码都有中文注释解释「为什么这么写」**。
-> 目标硬件：**单张 NVIDIA L4（24GB）**，全部 8 个实验都能在上面跑完。
+> 8 个从零实现的实验，覆盖 SFT → 奖励模型 → DPO → GRPO → 奖励工程 → 评估 → Agentic RL，
+> 外加 2 个用主流 RL 框架（TRL / veRL）复现 GRPO 的对照实验。
+> 主线不用任何 RL 框架封装，所有算法从头写，**每一行关键代码都有中文注释解释「为什么这么写」**。
+> 目标硬件：**单张 NVIDIA L4（24GB）**，10 个实验全部能在上面跑完。
 
 代码注释里提到的「教程第 N 章」指配套的理论教程（公式推导 / 论文精讲 / workflow），
 本仓库不含它，但每个 lab 都可以独立读懂 —— 关键推导都写在对应的 README 和代码注释里。
@@ -42,6 +43,15 @@ make lab01             # 第一个真正的训练：SFT（约 8 分钟）
 | **05** | Reward Hacking | 奖励函数攻防演练 + **真的用坏奖励训一次，看曲线骗过你** | 1 min / 20 min | 12 GB |
 | **06** | 评估 | avg@k、**pass@k 无偏估计**、maj@k、n-gram 污染检查 | 15 min | 6 GB |
 | **07** | Agentic RL | 多轮工具调用、**工具输出的 loss mask**、安全沙箱 | 1.5 h / 100 步 | 14 GB |
+
+### 框架对照（可选，需额外安装依赖）
+
+同一份奖励函数、同一份 GSM8K 数据，换成主流 RL 框架复现 lab04，方便对比「手写 vs 框架」：
+
+| Lab | 主题 | 框架 | 定位 |
+|:---|:---|:---|:---|
+| **08** | GRPO（TRL 版） | [TRL](https://github.com/huggingface/trl) `GRPOTrainer` | 单卡/小规模生产，成熟轻量 |
+| **09** | GRPO（veRL 版） | [veRL](https://github.com/volcengine/verl) `main_ppo` | 大规模分布式生产（FSDP/Megatron + 千卡），单卡上只是走通流程 |
 
 每个 lab 目录下都有自己的 `README.md`，说明原理、参数含义、预期输出和「该看什么指标」。
 
@@ -106,7 +116,9 @@ llm-post-training-labs/
 │   ├── lab04_grpo/             ★ GRPO（核心）
 │   ├── lab05_reward_hacking/   奖励工程
 │   ├── lab06_eval_passk/       评估
-│   └── lab07_agentic_rl/       多轮工具调用
+│   ├── lab07_agentic_rl/       多轮工具调用
+│   ├── lab08_trl_grpo/         GRPO（TRL 版，对照 lab04）
+│   └── lab09_verl_grpo/        GRPO（veRL 版，对照 lab04）
 │
 ├── scripts/
 │   ├── test_core.py            ★ 算法单元测试（纯 CPU，几秒，改代码后必跑）
@@ -251,8 +263,9 @@ python scripts/download_assets.py            # 先把东西下全
 ## 说明
 
 - 所有实验用 **GSM8K**（小学数学应用题）和 **UltraFeedback**（偏好数据），都是公开数据集，首次运行自动下载。
-- 代码为教学目的编写，优先考虑**可读性**而非极致性能。生产环境请用 [verl](https://github.com/volcengine/verl) 或 [TRL](https://github.com/huggingface/trl)。
-- lab04/lab07 的 `grpo_loss()` 与 verl 的 `core_algos.py`、TRL 的 `grpo_trainer.py` 结构一致，读懂这里就能读懂它们。
+- 主线（lab00~07）代码为教学目的编写，优先考虑**可读性**而非极致性能。生产环境请用
+  [TRL](https://github.com/huggingface/trl)（lab08 已给出示例）或 [veRL](https://github.com/volcengine/verl)（lab09 已给出示例）。
+- lab04/lab07 的 `grpo_loss()` 与 veRL 的 `core_algos.py`、TRL 的 `grpo_trainer.py` 结构一致，读懂这里就能读懂它们。
 
 ## License
 
