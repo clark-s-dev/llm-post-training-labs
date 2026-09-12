@@ -29,7 +29,7 @@ veRL 是为千卡级训练设计的，即便只用单卡也绕不开它的几个
 
 - **数据必须是 parquet**，每行要有 `prompt` / `reward_model.ground_truth` 等固定字段
   （见 `prepare_data.py`），不能像 lab04/08 那样直接喂 Python list。
-- **奖励函数走独立进程加载**：`custom_reward_function.path/.name` 指向
+- **奖励函数走独立进程加载**：`reward.custom_reward_function.path/.name` 指向
   `reward_fn.py::compute_score(data_source, solution_str, ground_truth, extra_info)`，
   这是 veRL 的固定接口，不能像 TRL 那样直接传函数对象。
 - **配置是 Hydra 覆盖参数**，不是一个 Python dataclass —— `run_lab09_l4.sh` 里那一长串

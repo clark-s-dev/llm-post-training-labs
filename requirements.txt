@@ -25,6 +25,7 @@ wandb>=0.17
 # 注意 vllm 对 torch 版本非常挑剔，单独装以免破坏上面的环境
 # vllm>=0.6
 
-# ─── 可选：lab08/lab09 的 RL 框架对照实验，不装不影响其余 lab ─────────
+# ─── 可选：lab08/lab09/lab10 的 RL 框架对照实验，不装不影响其余 lab ────
 # pip install -r labs/lab08_trl_grpo/requirements-trl.txt
 # pip install -r labs/lab09_verl_grpo/requirements-verl.txt
+# pip install -r labs/lab10_verl_agentic_rl/requirements-verl.txt

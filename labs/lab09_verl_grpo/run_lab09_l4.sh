@@ -38,9 +38,9 @@ python3 -m verl.trainer.main_ppo \
     actor_rollout_ref.rollout.temperature=1.0 \
     actor_rollout_ref.rollout.tensor_model_parallel_size=1 \
     actor_rollout_ref.ref.log_prob_micro_batch_size_per_gpu=4 \
-    critic.enable=false \
-    custom_reward_function.path=labs/lab09_verl_grpo/reward_fn.py \
-    custom_reward_function.name=compute_score \
+    algorithm.use_kl_in_reward=False \
+    reward.custom_reward_function.path=labs/lab09_verl_grpo/reward_fn.py \
+    reward.custom_reward_function.name=compute_score \
     trainer.n_gpus_per_node=1 \
     trainer.nnodes=1 \
     trainer.total_epochs=1 \

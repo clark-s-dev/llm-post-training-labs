@@ -1,0 +1,4 @@
+verl>=0.3
+sglang>=0.4
+pandas>=2.0
+pyarrow>=14.0
